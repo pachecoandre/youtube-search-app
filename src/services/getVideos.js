@@ -37,31 +37,19 @@ const getVideos = async (searchTerm, searchLimit = 200) => {
         }
     }
 
-    let batches = []
-
+    const batches = []
     const batchSize = 50
 
     for (let i = 0; i < videoIds.length; i += batchSize) {
         const batch = videoIds.slice(i, i + batchSize)
-        
+        batches.push(batch)
     }
-
-
 
     let requests = batches.map(batch => {
         return axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${batch}&key=${key}`)
     })
-    
-    requests.slice(0, 50)
 
-    for (let index = 0; index < requests.length; index += 50) {
-
-        // const batch = []
-        // firstIndexReq = requests.shift()
-        // batch.push(firstIndexReq)
-    }
-
-
+    const videoInfos = await Promise.all(requests)
 
     console.log(videoIds.length, 'videos found')
 }
