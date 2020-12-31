@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { getVideos } = require('../services/getVideos')
+const { router } = require('../routes')
 
 class Server {
     constructor(port) {
@@ -12,14 +12,7 @@ class Server {
         this.port = port || 3000
     }
     route () {
-        this.app.get('/', (req, res) => {
-            res.send('Welcome')
-        })
-        this.app.get('/videos', async (req, res) => {
-            const searchTerm = req.query.q
-            const videos = await getVideos(searchTerm)
-            res.send(videos)
-        })
+        this.app.use(router)
     }
     listen () {
         this.app.listen(this.port, () => console.log(`Server running on port ${this.port}`))
