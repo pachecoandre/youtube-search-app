@@ -65,9 +65,9 @@ const getVideos = async (searchTerm, searchLimit = 200) => {
             duration: video.contentDetails && video.contentDetails.duration
         }
     })
-
-    console.log(videoIds.length, 'videos found')
-    console.log(videos)
+    console.log(videos.length, 'videos found')
+    
+    return videos
 }
 
 module.exports = {

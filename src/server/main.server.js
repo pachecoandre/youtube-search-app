@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const { getVideos } = require('../services/getVideos')
 
 class Server {
     constructor(port) {
@@ -13,6 +14,11 @@ class Server {
     route () {
         this.app.get('/', (req, res) => {
             res.send('Welcome')
+        })
+        this.app.get('/videos', async (req, res) => {
+            const searchTerm = req.query.q
+            const videos = await getVideos(searchTerm)
+            res.send(videos)
         })
     }
     listen () {
