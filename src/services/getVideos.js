@@ -51,7 +51,23 @@ const getVideos = async (searchTerm, searchLimit = 200) => {
 
     const videoInfos = await Promise.all(requests)
 
+    let videos = []
+
+    videoInfos.forEach(videoInfosRes => {
+        const videosList = videoInfosRes.data && videoInfosRes.data.items
+        videos = [...videos, ...videosList]
+    })
+
+    videos = videos.map(video => {
+        return {
+            title: video.snippet && video.snippet.title,
+            // description: video.snippet && video.snippet.description,
+            duration: video.contentDetails && video.contentDetails.duration
+        }
+    })
+
     console.log(videoIds.length, 'videos found')
+    console.log(videos)
 }
 
 module.exports = {
