@@ -1,6 +1,6 @@
 const axios = require('axios')
-const { calculateDays } = require('./getFigures')
-const { formatDuration, wordCounter } = require('../helpers')
+const { calculateDays, frequentWords } = require('./getFigures')
+const { formatDuration } = require('../helpers')
 
 /**
  * Returns a list of videos on Youtube
@@ -88,9 +88,11 @@ const getVideos = async (searchTerm, weekConfig = [], searchLimit = 200) => {
     console.log(`${videos.length} videos found`)
 
     const days = calculateDays(weekConfig, videoDurations)
+    const words = frequentWords(videos)
 
     return {
         daysForWatching: days,
+        frequentWords: words,
         videos
     }
 }

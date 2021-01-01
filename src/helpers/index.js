@@ -53,19 +53,8 @@ const sortAndCountWord = (text, delimiter) => {
     }
 }
 
-const wordCounter = (str) => {
-    let wordCounts = {}
-    let words = str.split(/\b/)
-
-    for (var i = 0; i < words.length; i++) {
-        wordCounts["_" + words[i]] = (wordCounts["_" + words[i]] || 0) + 1
-    }
-    return wordCounts
-}
-
 module.exports = {
     formatDuration,
     normalizeText,
-    sortAndCountWord,
-    wordCounter
+    sortAndCountWord
 }
