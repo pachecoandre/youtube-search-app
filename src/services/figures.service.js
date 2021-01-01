@@ -1,4 +1,4 @@
-const { normalizeText } = require('../helpers')
+const { normalizeText, formatDuration } = require('../helpers')
 
 /**
  * Returns the duration in days for watching all videos
@@ -8,13 +8,9 @@ const { normalizeText } = require('../helpers')
  */
 const calculateDays = (weekConfig, videoDurations) => {
 
-    console.log('video durations', videoDurations)
-
     if (!weekConfig || !Array.isArray(weekConfig) || weekConfig.length === 0 || !videoDurations) return 0
 
     console.log('calculating days')
-    console.log('weekConfig', weekConfig)
-    console.log('videoDurations', videoDurations)
 
     let totalDays = 0
     const durationLimit = Math.max(...weekConfig)
@@ -98,14 +94,39 @@ const frequentWords = (records) => {
     // Sort
     titleCounts = sortDict(titleCounts)
     descripCounts = sortDict(descripCounts)
-    
+
     return {
         titleCounts,
         descripCounts
     }
 }
 
-module.exports = {
-    calculateDays,
-    frequentWords
+const getFigures = (videos, weekConfig) => {
+    let videoDurations = []
+
+    videos = videos.map(video => {
+        videoDurations.push(video.contentDetails && video.contentDetails.duration || 0)
+        return {
+            title: video.snippet && video.snippet.title,
+            description: video.snippet && video.snippet.description,
+            thumbnail: video.snippet && video.snippet.thumbnails && video.snippet.thumbnails.default,
+            duration: video.contentDetails && video.contentDetails.duration
+        }
+    })
+
+    // format google duration to minutes
+    videoDurations = videoDurations.map(duration => formatDuration(duration))
+
+    console.log(`${videos.length} videos found`)
+
+    const days = calculateDays(weekConfig, videoDurations)
+    const words = frequentWords(videos)
+
+    return {
+        watchDuration: days,
+        frequentWords: words,
+        videos
+    }
 }
+
+module.exports = { getFigures }

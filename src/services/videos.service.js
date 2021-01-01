@@ -1,15 +1,13 @@
 const axios = require('axios')
-const { calculateDays, frequentWords } = require('./getFigures')
-const { formatDuration } = require('../helpers')
 
 /**
- * Returns a list of videos on Youtube
+ * Returns a list of videos from Youtube
  * 
  * @param {string} searchTerm
  * @param {number[]} weekConfig
  * @param {number=} searchLimit 
  */
-const getVideos = async (searchTerm, weekConfig = [], searchLimit = 200) => {
+const getVideos = async (searchTerm, searchLimit = 200) => {
 
     const videoIds = []
     const key = process.env.GAPI_YOUTUBE_KEY
@@ -71,32 +69,7 @@ const getVideos = async (searchTerm, weekConfig = [], searchLimit = 200) => {
         videos = [...videos, ...videosList]
     })
 
-    let videoDurations = []
-
-    videos = videos.map(video => {
-        videoDurations.push(video.contentDetails && video.contentDetails.duration || 0)
-        return {
-            title: video.snippet && video.snippet.title,
-            description: video.snippet && video.snippet.description,
-            duration: video.contentDetails && video.contentDetails.duration
-        }
-    })
-
-    // format google duration to minutes
-    videoDurations = videoDurations.map(duration => formatDuration(duration))
-
-    console.log(`${videos.length} videos found`)
-
-    const days = calculateDays(weekConfig, videoDurations)
-    const words = frequentWords(videos)
-
-    return {
-        daysForWatching: days,
-        frequentWords: words,
-        videos
-    }
+    return videos
 }
 
-module.exports = {
-    getVideos
-}
+module.exports = { getVideos }
