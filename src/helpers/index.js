@@ -25,5 +25,5 @@ const formatDuration = (duration) => {
 }
 
 module.exports = {
-    formatDuration
+    formatDuration,
 }
