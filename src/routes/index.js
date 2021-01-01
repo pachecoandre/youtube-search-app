@@ -5,7 +5,8 @@ const router = Router()
 
 router.get('/videos', async (req, res) => {
     const searchTerm = req.query.q
-    const videos = await getVideos(searchTerm)
+    const weekConfig = req.query.weekConfig
+    const videos = await getVideos(searchTerm, weekConfig)
     res.send(videos)
 })
 
