@@ -11,6 +11,4 @@ router.get('/videos', async (req, res) => {
     res.send(videos)
 })
 
-module.exports = {
-    router
-}
+module.exports = { router }
