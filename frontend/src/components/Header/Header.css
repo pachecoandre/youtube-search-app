@@ -1,0 +1,12 @@
+.page-header {
+    background-color: #555555;
+    color: #dddddd;
+    padding: 1vw;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .page-header {
+        padding: 8px;
+    }
+}

@@ -1,0 +1,10 @@
+.videos {
+    padding: 1vw;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .videos {
+        padding: 8px;
+    }
+}

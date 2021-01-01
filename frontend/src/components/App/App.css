@@ -1,0 +1,30 @@
+.App {
+    text-align: center;
+    background-color: #dddddd;
+    min-height: 100vh;
+}
+
+.week-day-inputs {
+    padding: 1vw;
+    text-align: center;
+}
+
+.info {
+    margin: 10px;
+}
+
+input.week-day {
+    background: white;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 15px;
+    margin-top: 4px;
+    padding: 8px 10px;
+    width: 30px;
+}
+
+@media (max-width: 600px) {
+    .week-day-inputs {
+        padding: 8px;
+    }
+}
