@@ -24,6 +24,48 @@ const formatDuration = (duration) => {
     return duration / 60 // seconds to minutes
 }
 
+const normalizeText = (text = '') => {
+    // text = text.replace(/\n/g, ' ')
+    text = text.replace(/\d|#/g, '')
+    text = text.replace(/\(|\)|\"|\,|\.|\!|\?|\:|\;|\”|\“|\-/g, '')
+    return text.toLowerCase()
+}
+
+const sortAndCountWord = (text, delimiter) => {
+    if (!text || !delimiter) {
+        return false
+
+    } else {
+        var words = text.split(delimiter),
+            count = []
+        for (var i = 0, len = words.length; i < len; i++) {
+            if (count.hasOwnProperty(words[i])) {
+                count[words[i]] = parseInt(count[words[i]], 10) + 1;
+            }
+            else {
+                count[words[i]] = 1
+            }
+        }
+        count.sort()
+
+        return Object.keys(count).map(k => [k, count[k]])
+            .sort((a, b) => a[1] < b[1]).map(e => e[0])
+    }
+}
+
+const wordCounter = (str) => {
+    let wordCounts = {}
+    let words = str.split(/\b/)
+
+    for (var i = 0; i < words.length; i++) {
+        wordCounts["_" + words[i]] = (wordCounts["_" + words[i]] || 0) + 1
+    }
+    return wordCounts
+}
+
 module.exports = {
     formatDuration,
+    normalizeText,
+    sortAndCountWord,
+    wordCounter
 }

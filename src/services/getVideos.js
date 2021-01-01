@@ -1,6 +1,6 @@
 const axios = require('axios')
 const { calculateDays } = require('./getFigures')
-const { formatDuration} = require('../helpers')
+const { formatDuration, wordCounter } = require('../helpers')
 
 /**
  * Returns a list of videos on Youtube
