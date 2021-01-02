@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Header from '../Header/Header'
 import Metrics from '../Metrics/Metrics'
 import Videos from '../Videos/Videos'
+import loading from '../../img/loading.gif'
 import './App.css';
 
 const App = () => {
@@ -14,6 +15,8 @@ const App = () => {
     const [sunday, setSunday] = useState('')
     const [search, setSearch] = useState('')
     const [fetching, setFetching] = useState(false)
+    const [metrics, setMetrics] = useState({})
+    const [videos, setVideos] = useState([])
 
     useEffect(() => {
         // console.log()
@@ -24,17 +27,37 @@ const App = () => {
         console.log(`Week setup: ${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}`)
         console.log(`Search: ${search}`)
         setFetching(true)
-        await new Promise((resolve) => {
-            setTimeout(() => {
-                setFetching(false)
-                resolve()
-            }, 2000);
+        const response = await new Promise((resolve) => setTimeout(() => {
+            resolve({
+                watchDuration: 15,
+                frequentWords: {
+                    titleCounts: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
+                    descripCounts: ['enim', 'nostrud', 'commodo', 'sit', 'consequat']
+                },
+                videos: [{
+                    title: 'AC/DC',
+                    description: 'Lorem ipsum dolor',
+                    thumbnail: 'https://i.ytimg.com/vi/7lCDEYXw3mM/default.jpg',
+                    duration: '2:30'
+                },
+                {
+                    title: 'AC/DC',
+                    description: 'Lorem ipsum dolor',
+                    thumbnail: 'https://i.ytimg.com/vi/7lCDEYXw3mM/default.jpg',
+                    duration: '2:30'
+                }]
+            })
+        }, 2000))
+        setFetching(false)
+        setMetrics({
+            titleCounts: response.frequentWords.titleCounts,
+            descripCounts: response.frequentWords.descripCounts
         })
+        setVideos(response.videos)
     }
 
     return (
         <div className="App" >
-
             <Header />
 
             <div className="info">
@@ -57,9 +80,11 @@ const App = () => {
                 </form>
             </div>
 
-            <Metrics />
-            <Videos fetching={fetching} />
-
+            {fetching ? <div><img className="loading" alt="Carregando" src={loading}></img></div> : null}
+            {videos.length > 0 ? <div>
+                <Metrics metrics={metrics} />
+                <Videos videos={videos} />
+            </div> : null}
         </div>
     );
 }

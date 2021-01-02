@@ -23,6 +23,11 @@ input.week-day {
     width: 30px;
 }
 
+img.loading {
+    width: 30px;
+    height: 30px;
+}
+
 @media (max-width: 600px) {
     .week-day-inputs {
         padding: 8px;

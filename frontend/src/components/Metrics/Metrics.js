@@ -1,9 +1,10 @@
 import './Metrics.css';
 
-const Metrics = () => {
+const Metrics = (props) => {
   return (
     <div className="metrics">
-      Metrics
+      {props.metrics && props.metrics.titleCounts ? <div>Palavras mais usadas em títulos: {props.metrics.titleCounts.join(' - ')}</div> : null}
+      {props.metrics && props.metrics.descripCounts ? <div>Palavras mais usadas em títulos: {props.metrics.descripCounts.join(' - ')}</div> : null}
     </div>
   );
 }
