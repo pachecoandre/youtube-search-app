@@ -7,8 +7,8 @@ const Metrics = (props) => {
     return words
   }
   const frequentWords = props.metrics.frequentWords
-  const titleCounts = frequentWords && frequentWords.titleCounts && getWords(frequentWords.titleCounts) || <span> </span>
-  const descripCounts = frequentWords && frequentWords.descripCounts && getWords(frequentWords.descripCounts) || <span> </span>
+  const titleCounts = frequentWords && frequentWords.titleCounts && getWords(frequentWords.titleCounts)
+  const descripCounts = frequentWords && frequentWords.descripCounts && getWords(frequentWords.descripCounts)
   const watchDuration = props.metrics.watchDuration
 
   return (
@@ -33,10 +33,10 @@ const Metrics = (props) => {
         </tr>
         <tr>
           <td className="metrics-labels">
-            Tempo total para assistir:
+            Tempo para assistir todos:
           </td>
           <td className="metrics-figures">
-            <span style={{ fontSize: '20px' }}>{watchDuration}</span> <span>{parseInt(watchDuration) > 1 ? 'dias': 'dia'}</span>
+            <span style={{ fontSize: '20px' }}>{watchDuration}</span> <span>{parseInt(watchDuration) === 1 ? 'dia': 'dias'}</span>
           </td>
         </tr>
       </table>

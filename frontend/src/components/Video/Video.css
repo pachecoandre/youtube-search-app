@@ -1,11 +1,11 @@
 .video {
     display: flex;
-    justify-content: space-between;
-    padding: 10px
+    padding: 5px 0 5px 0;
 }
 
 .video-info {
     padding-left: 10px;
+    padding-right: 10px;
     text-align: left;
 }
 

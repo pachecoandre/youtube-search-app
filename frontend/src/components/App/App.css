@@ -7,7 +7,7 @@
 
 .main-container {
     margin: auto;
-    width: 60%;
+    width: 80%;
 }
 
 .week-day-inputs {
@@ -76,5 +76,9 @@ img.loading {
 @media (max-width: 600px) {
     .week-day-inputs {
         padding: 8px;
+    }
+    .main-container {
+        margin: auto;
+        width: auto;
     }
 }
