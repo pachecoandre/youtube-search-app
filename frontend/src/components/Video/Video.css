@@ -1,10 +1,9 @@
-.videos {
-    padding: 1vw;
-    text-align: center;
+.video {
+    display: flex;
 }
 
 @media (max-width: 600px) {
-    .videos {
-        padding: 8px;
+    .video {
+        display: flex;
     }
 }

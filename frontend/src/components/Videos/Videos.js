@@ -1,17 +1,13 @@
+import Video from '../Video/Video'
 import './Videos.css';
 
 const Videos = (props) => {
+
+  if (!props.videos) return <div></div>
+
   return (
     <div className="videos">
-      {
-        props.videos ?
-          props.videos.map((video, index) => (
-            <div key={index}>
-              <img alt={video.title} src={video.thumbnail}></img>
-            </div>
-          ))
-          : null
-      }
+      {props.videos.map((video, index) => <Video key={index} video={video} />)}
     </div>
   );
 }

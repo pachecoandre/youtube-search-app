@@ -1,10 +1,10 @@
 .videos {
-    padding: 1vw;
+    padding: 4vw 8vw 4vw 8vw;
     text-align: center;
 }
 
 @media (max-width: 600px) {
     .videos {
-        padding: 8px;
+        padding: 16px 32px 16px 32px;
     }
 }

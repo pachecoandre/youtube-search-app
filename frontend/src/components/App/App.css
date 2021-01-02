@@ -1,26 +1,71 @@
 .App {
+    background-color: #efefefef;
+    color: #555555;
     text-align: center;
-    background-color: #dddddd;
     min-height: 100vh;
 }
 
+.main-container {
+    margin: auto;
+    width: 60%;
+}
+
 .week-day-inputs {
-    padding: 1vw;
+    justify-content: center;
+    display: flex;
     text-align: center;
 }
 
-.info {
-    margin: 10px;
-}
-
 input.week-day {
-    background: white;
     border: 1px solid #dddddd;
     border-radius: 4px;
     font-size: 15px;
     margin-top: 4px;
     padding: 8px 10px;
     width: 30px;
+    outline: none;
+}
+
+.week-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    margin: 30px;
+}
+
+form.search-form {
+    padding: 30px;
+}
+
+input.search-input {
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 4px;
+    padding: 8px 10px;
+    outline: none;
+}
+
+.search-submit-button {
+    box-shadow:inset 0px 39px 0px -24px #e67a73;
+	background-color:#e4685d;
+	border-radius:4px;
+	border:1px solid #b65048;
+	display:inline-block;
+	cursor:pointer;
+    color:#ffffff;
+    margin: 4px;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 15px;
+    text-shadow:0px 1px 0px #b23e35;
+    outline:none;
+}
+
+.search-submit-button:hover {
+    background-color:#e9908a;
 }
 
 img.loading {
