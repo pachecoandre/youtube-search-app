@@ -13,8 +13,14 @@ const Video = (props) => {
 
   return (
     <div className="video">
-      <img alt={video.title} src={video.thumbnail && video.thumbnail.url}></img>
-      <div>{cropDescrip(video.description)}</div>
+      <img alt="Video" src={video.thumbnail && video.thumbnail.url}></img>
+      <div className="video-info">
+        <div className="video-title">{video.title}</div>
+        <div className="video-description">{cropDescrip(video.description)}</div>
+      </div>
+      <div>
+        {video.duration}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,29 @@
 .metrics {
-    padding: 1vw;
+    justify-content: center;
+    display: flex;
     text-align: center;
+}
+
+.metrics-labels {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.metrics-figures {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.chip {
+    background-color: #ecb9b6;
+    border-radius: 8px;
+    margin: 2px;
+    padding: 2px 6px 2px 6px;
+}
+
+.chips-group {
+    display: flex;
+    margin: 12px;
 }
 
 @media (max-width: 600px) {
