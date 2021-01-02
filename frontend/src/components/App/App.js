@@ -1,9 +1,11 @@
-import './App.css';
+import { useState } from 'react'
 import Header from '../Header/Header'
 import Metrics from '../Metrics/Metrics'
-import Video from '../Video/Video'
+import Videos from '../Videos/Videos'
+import './App.css';
 
 const App = () => {
+    const [monday, setMonday] = useState()
     return (
         <div className="App" >
 
@@ -14,7 +16,7 @@ const App = () => {
             </div>
 
             <div className="week-day-inputs" >
-                <input className="week-day" name="mon" type="text" />
+                <input className="week-day" value={monday} onChange={(e) => setMonday(e.target.value)} name="mon" type="text" />
                 <input className="week-day" name="tue" type="text" />
                 <input className="week-day" name="wed" type="text" />
                 <input className="week-day" name="thu" type="text" />
@@ -27,7 +29,7 @@ const App = () => {
             </div>
 
             <Metrics />
-            <Video />
+            <Videos />
 
         </div>
     );
