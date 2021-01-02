@@ -1,9 +1,9 @@
 import './Videos.css';
 
-const Videos = () => {
+const Videos = (props) => {
   return (
     <div className="videos">
-      Videos
+      {props.fetching ? 'Buscando...' : 'Videos'}
     </div>
   );
 }
