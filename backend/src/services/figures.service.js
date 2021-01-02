@@ -105,19 +105,16 @@ const getFigures = (videos, weekConfig) => {
     let videoDurations = []
 
     videos = videos.map(video => {
-        videoDurations.push(video.contentDetails && video.contentDetails.duration || 0)
+        const duration = video.contentDetails && video.contentDetails.duration || 'PT0S'
+        videoDurations.push(formatDuration(duration)) // duration in minutes
         return {
             title: video.snippet && video.snippet.title,
             description: video.snippet && video.snippet.description,
             thumbnail: video.snippet && video.snippet.thumbnails && video.snippet.thumbnails.default,
-            duration: video.contentDetails && video.contentDetails.duration
+            url: video.id && `https://www.youtube.com/watch?v=${video.id}` || 'https://www.youtube.com',
+            duration
         }
     })
-
-    // format google duration to minutes
-    videoDurations = videoDurations.map(duration => formatDuration(duration))
-
-    console.log(`${videos.length} videos found`)
 
     const days = calculateDays(weekConfig, videoDurations)
     const words = frequentWords(videos)

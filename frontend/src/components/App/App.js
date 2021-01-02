@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Header from '../Header/Header'
 import Metrics from '../Metrics/Metrics'
 import Videos from '../Videos/Videos'
@@ -27,33 +28,20 @@ const App = () => {
         console.log(`Week setup: ${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}`)
         console.log(`Search: ${search}`)
         setFetching(true)
-        const response = await new Promise((resolve) => setTimeout(() => {
-            resolve({
-                watchDuration: 15,
-                frequentWords: {
-                    titleCounts: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-                    descripCounts: ['enim', 'nostrud', 'commodo', 'sit', 'consequat']
-                },
-                videos: [{
-                    title: 'AC/DC',
-                    description: 'Lorem ipsum dolor',
-                    thumbnail: 'https://i.ytimg.com/vi/7lCDEYXw3mM/default.jpg',
-                    duration: '2:30'
-                },
-                {
-                    title: 'AC/DC',
-                    description: 'Lorem ipsum dolor',
-                    thumbnail: 'https://i.ytimg.com/vi/7lCDEYXw3mM/default.jpg',
-                    duration: '2:30'
-                }]
-            })
-        }, 2000))
+        try {
+            const response = await axios.get(`http://localhost:5000/videos?q=${search}&weekConfig=[${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}]`)
+            console.log(response.data)
+
+        } catch (error) {
+            console.log(error)
+            return {}
+        }
         setFetching(false)
-        setMetrics({
-            titleCounts: response.frequentWords.titleCounts,
-            descripCounts: response.frequentWords.descripCounts
-        })
-        setVideos(response.videos)
+        // setMetrics({
+        //     titleCounts: response.frequentWords.titleCounts,
+        //     descripCounts: response.frequentWords.descripCounts
+        // })
+        // setVideos(response.videos)
     }
 
     return (
