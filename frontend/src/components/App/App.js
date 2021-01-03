@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import Header from '../Header/Header'
 import Metrics from '../Metrics/Metrics'
@@ -18,13 +18,45 @@ const App = () => {
     const [fetching, setFetching] = useState(false)
     const [metrics, setMetrics] = useState({})
     const [videos, setVideos] = useState([])
+    const [errorMessage, setErrorMessage] = useState('')
+    const [errorLocation, setErrorLocation] = useState('')
+
+    const checkErrors = ({ weekConfig, search }) => {
+
+        // week config errors
+        weekConfig.forEach((config, index) => {
+            if (weekConfig.every(config => !config)) {
+                setErrorMessage('Por favor, informe um valor válido em pelo menos em um dia da semana')
+                setErrorLocation('weekConfig')
+                throw new Error('At least one day must be greater than zero')
+            }
+            if (!config) {
+                weekConfig[index] = '0'
+            }
+        })
+        // search bar errors
+        if (!search) {
+            setErrorMessage('Por favor, informe um termo de pesquisa')
+                setErrorLocation('searchBar')
+                throw new Error('Search field cannot be empty')
+        }
+    }
 
     const handleSearch = async (e) => {
+
         e.preventDefault()
-        console.log(`Week setup: ${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}`)
-        console.log(`Search: ${search}`)
+
+        /* clean errors */
+        setErrorMessage('')
+        setErrorLocation('')
+        
         setFetching(true)
         try {
+            const weekConfig = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+            checkErrors({ weekConfig, search })
+
+            console.log(`Week config: ${JSON.stringify(weekConfig)}`)
+
             const response = await axios.get(`http://localhost:5000/videos?q=${search}&weekConfig=[${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}]`)
             setMetrics({
                 watchDuration: response.data && response.data.watchDuration,
@@ -34,6 +66,7 @@ const App = () => {
 
         } catch (error) {
             console.log(error)
+            setFetching(false)
             return {}
         }
         setFetching(false)
@@ -46,7 +79,7 @@ const App = () => {
                 <div className="info">
                     Informe quanto tempo em MINUTOS você tem para assistir vídeos em cada dia da semana:
             </div>
-                <div className="week-day-inputs" >
+                <div className="week-settup" >
                     <div className="week-label">
                         <label>Seg</label>
                         <input className="week-day" value={monday} onChange={(e) => setMonday(e.target.value)} name="mon" type="text" />
@@ -76,13 +109,16 @@ const App = () => {
                         <input className="week-day" value={sunday} onChange={(e) => setSunday(e.target.value)} name="sun" type="text" />
                     </div>
                 </div>
+                {errorLocation === 'weekConfig' ? <div style={{ color: 'red', paddingTop: '10px' }}>{errorMessage}</div> : null}
+                
                 <div>
                     <form className="search-form" onSubmit={handleSearch}>
                         <input className="search-input" value={search} placeholder="Pesquisa" onChange={(e) => setSearch(e.target.value)} name="search-input" type="text" />
                         <button className="search-submit-button" type="submit">Buscar</button>
                     </form>
                 </div>
-
+                {errorLocation === 'searchBar' ? <div style={{ color: 'red', paddingTop: '10px' }}>{errorMessage}</div> : null}
+                
                 {fetching ? <div><img className="loading" alt="Carregando" src={loading}></img></div> : null}
                 {videos.length > 0 ? <div>
                     <Metrics metrics={metrics} />

@@ -24,10 +24,31 @@ const formatDuration = (duration) => {
     return duration / 60 // seconds to minutes
 }
 
+const formatHHMMSS = (duration) => {
+    let parts = duration.match(/\d+/g)
+
+    if (parts.length == 3) {
+        const hours = parts[0]
+        const minutes = parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
+        const seconds = parseInt(parts[2]) < 10 ? `0${parts[2]}` : parts[2]
+        return `${hours}:${minutes}:${seconds}`
+    }
+    if (parts.length == 2) {
+        const minutes = parts[0]
+        const seconds = parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
+        return `${minutes}:${seconds}`
+    }
+    if (parts.length == 1) {
+        const minutes = '0'
+        const seconds = parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
+        return `${minutes}:${seconds}`
+    }
+
+    return '0:00'
+}
+
 const normalizeText = (text = '') => {
-    // text = text.replace(/\n/g, ' ')
-    text = text.replace(/\d|#/g, '')
-    text = text.replace(/\(|\)|\"|\,|\.|\!|\?|\:|\;|\”|\“|\-/g, '')
+    text = text.replace(/\(|\)|\"|\,|\.|\!|\?|\:|\;|\”|\“|\-|\d|#/g, '')
     return text.toLowerCase()
 }
 
@@ -55,6 +76,7 @@ const sortAndCountWord = (text, delimiter) => {
 
 module.exports = {
     formatDuration,
+    formatHHMMSS,
     normalizeText,
     sortAndCountWord
 }

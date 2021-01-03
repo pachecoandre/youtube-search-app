@@ -1,4 +1,4 @@
-const { normalizeText, formatDuration } = require('../helpers')
+const { normalizeText, formatDuration, formatHHMMSS } = require('../helpers')
 
 /**
  * Returns the duration in days for watching all videos
@@ -102,6 +102,7 @@ const frequentWords = (records) => {
 }
 
 const getFigures = (videos, weekConfig) => {
+    
     let videoDurations = []
 
     videos = videos.map(video => {
@@ -112,7 +113,7 @@ const getFigures = (videos, weekConfig) => {
             description: video.snippet && video.snippet.description,
             thumbnail: video.snippet && video.snippet.thumbnails && video.snippet.thumbnails.default,
             url: video.id && `https://www.youtube.com/watch?v=${video.id}` || 'https://www.youtube.com',
-            duration
+            duration: formatHHMMSS(duration)
         }
     })
 

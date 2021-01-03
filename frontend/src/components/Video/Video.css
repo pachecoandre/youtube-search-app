@@ -1,5 +1,6 @@
 .video {
     display: flex;
+    justify-content:;
     padding: 5px 0 5px 0;
 }
 
@@ -17,7 +18,12 @@
 
 .video-description {
     padding-top: 5px;
+}
 
+.video-info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 @media (max-width: 600px) {

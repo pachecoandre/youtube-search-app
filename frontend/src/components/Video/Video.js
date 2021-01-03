@@ -14,14 +14,16 @@ const Video = (props) => {
   return (
     <div className="video">
       <div>
-        <img alt="Video" src={video.thumbnail && video.thumbnail.url}></img>
+        <a target="_blank" rel="noopener noreferrer" href={video.url}><img alt="Video" src={video.thumbnail && video.thumbnail.url}></img></a>
       </div>
-      <div className="video-info">
-        <div className="video-title">{video.title}</div>
-        <div className="video-description">{cropDescrip(video.description)}</div>
-      </div>
-      <div>
-        {video.duration}
+      <div className="video-info-container">
+        <div className="video-info">
+          <a target="_blank" rel="noopener noreferrer" href={video.url}><div className="video-title">{video.title}</div></a>
+          <div className="video-description">{cropDescrip(video.description)}</div>
+        </div>
+        <div>
+          {video.duration}
+        </div>
       </div>
     </div>
   );

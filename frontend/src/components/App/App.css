@@ -1,6 +1,7 @@
 .App {
     background-color: #efefefef;
     color: #555555;
+    font-size: 14px;
     text-align: center;
     min-height: 100vh;
 }
@@ -10,7 +11,7 @@
     width: 80%;
 }
 
-.week-day-inputs {
+.week-settup {
     justify-content: center;
     display: flex;
     text-align: center;
@@ -21,9 +22,21 @@ input.week-day {
     border-radius: 4px;
     font-size: 15px;
     margin-top: 4px;
-    padding: 8px 10px;
+    padding: 6px 8px;
     width: 30px;
     outline: none;
+}
+
+/* Remove arrows Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .week-label {
@@ -74,7 +87,7 @@ img.loading {
 }
 
 @media (max-width: 600px) {
-    .week-day-inputs {
+    .week-settup {
         padding: 8px;
     }
     .main-container {
