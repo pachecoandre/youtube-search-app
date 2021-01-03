@@ -21,29 +21,7 @@ const App = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [errorLocation, setErrorLocation] = useState('')
 
-    const checkErrors = ({ weekConfig, search }) => {
-
-        // week config errors
-        weekConfig.forEach((config, index) => {
-            if (weekConfig.every(config => !/[0-9]{1,}/.test(config))) {
-                setErrorMessage('Por favor, informe um valor válido em pelo menos em um dia da semana')
-                setErrorLocation('weekConfig')
-                throw new Error('At least one day must be greater than zero')
-            }
-            if (!config) {
-                weekConfig[index] = '0'
-            }
-        })
-        // search bar errors
-        if (!search) {
-            setErrorMessage('Por favor, informe um termo de pesquisa')
-            setErrorLocation('searchBar')
-            throw new Error('Search field cannot be empty')
-        }
-    }
-
     const handleSearch = async (e) => {
-
         e.preventDefault()
 
         /* clean errors */
@@ -51,10 +29,14 @@ const App = () => {
         setErrorLocation('')
 
         setFetching(true)
-        try {
-            const weekConfig = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-            checkErrors({ weekConfig, search })
+        const weekConfig = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+        const foundError = checkErrors({ weekConfig, search })
 
+        try {
+            if (foundError) {
+                setFetching(false)
+                return
+            }
             console.log(`Week config: ${JSON.stringify(weekConfig)}`)
 
             const response = await axios.get(`http://localhost:5000/videos?q=${search}&weekConfig=[${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}]`)
@@ -67,9 +49,30 @@ const App = () => {
         } catch (error) {
             console.log(error)
             setFetching(false)
-            return {}
+            setErrorMessage('Serviço não disponível. Por favor tente mais tarde')
+            setErrorLocation('searchBar')
         }
         setFetching(false)
+    }
+
+    const checkErrors = ({ weekConfig, search }) => {
+
+        // week config errors
+        if (weekConfig.every(config => !/[0-9]{1,}/.test(config))) {
+            setErrorMessage('Por favor, informe um valor válido em pelo menos em um dia da semana')
+            setErrorLocation('weekConfig')
+            return true
+        }
+        for (let i = 0; i < weekConfig.length; i++) {
+            if (!weekConfig[i]) weekConfig[i] = '0'            
+        }
+        // search bar errors
+        if (!search) {
+            setErrorMessage('Por favor, informe um termo de pesquisa')
+            setErrorLocation('searchBar')
+            return true
+        }
+        return false
     }
 
     return (
