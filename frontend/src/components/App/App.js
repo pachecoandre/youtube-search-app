@@ -24,22 +24,20 @@ const App = () => {
     const handleSearch = async (e) => {
         e.preventDefault()
 
-        /* clean errors */
+        /* clean error messages */
         setErrorMessage('')
         setErrorLocation('')
 
         setFetching(true)
         const weekConfig = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
         const foundError = checkErrors({ weekConfig, search })
-
+        
+        if (foundError) {
+            setFetching(false)
+            return
+        }
         try {
-            if (foundError) {
-                setFetching(false)
-                return
-            }
-            console.log(`Week config: ${JSON.stringify(weekConfig)}`)
-
-            const response = await axios.get(`http://localhost:5000/videos?q=${search}&weekConfig=[${monday}, ${tuesday}, ${wednesday}, ${thursday}, ${friday}, ${saturday}, ${sunday}]`)
+            const response = await axios.get(`http://localhost:5000/videos?q=${search}&weekConfig=[${monday},${tuesday},${wednesday},${thursday},${friday},${saturday},${sunday}]`)
             setMetrics({
                 watchDuration: response.data && response.data.watchDuration,
                 frequentWords: response.data && response.data.frequentWords
@@ -48,7 +46,6 @@ const App = () => {
 
         } catch (error) {
             console.log(error)
-            setFetching(false)
             setErrorMessage('Serviço não disponível. Por favor tente mais tarde')
             setErrorLocation('searchBar')
         }
@@ -58,7 +55,7 @@ const App = () => {
     const checkErrors = ({ weekConfig, search }) => {
 
         // week config errors
-        if (weekConfig.every(config => !/[0-9]{1,}/.test(config))) {
+        if (weekConfig.every(config => !/[1-9]{1,}/.test(config))) {
             setErrorMessage('Por favor, informe um valor válido em pelo menos em um dia da semana')
             setErrorLocation('weekConfig')
             return true
