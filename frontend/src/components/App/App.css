@@ -1,5 +1,5 @@
 .App {
-    background-color: #efefefef;
+    background-color: white;
     color: #555555;
     font-size: 14px;
     text-align: center;
@@ -13,6 +13,13 @@ a {
 .main-container {
     margin: auto;
     width: 80%;
+}
+
+.week-label {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 .week-settup {
@@ -44,17 +51,12 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.week-label {
-    display: flex;
-    flex-direction: column;
-}
-
 .info {
-    margin: 30px;
+    margin: 24px;
 }
 
 form.search-form {
-    padding: 30px;
+    padding: 24px;
 }
 
 input.search-input {
