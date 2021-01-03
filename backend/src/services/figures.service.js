@@ -10,8 +10,6 @@ const calculateDays = (weekConfig, videoDurations) => {
 
     if (!weekConfig || !Array.isArray(weekConfig) || weekConfig.length === 0 || !videoDurations) return 0
 
-    console.log('calculating days')
-
     let totalDays = 0
     const durationLimit = Math.max(...weekConfig)
 

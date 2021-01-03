@@ -12,7 +12,7 @@ const getVideos = async (searchTerm, searchLimit = 200) => {
     const videoIds = []
     const key = process.env.GAPI_YOUTUBE_KEY
 
-    console.log('requesting first page of search list')
+    console.log('requesting videos')
 
     const firstPageRes = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=id&q=${searchTerm}&maxResults=50&type=video&key=${key}`)
     let searchList = firstPageRes.data
@@ -30,8 +30,6 @@ const getVideos = async (searchTerm, searchLimit = 200) => {
         }
     }
     while (nextPage && videoIds.length < searchLimit) {
-
-        console.log('requesting further pages')
 
         const remainingPagesRes = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=id&q=${searchTerm}&maxResults=50&type=video&pageToken=${nextPage}&key=${key}`)
         searchList = remainingPagesRes.data
@@ -58,7 +56,7 @@ const getVideos = async (searchTerm, searchLimit = 200) => {
         return axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${batch}&key=${key}`)
     })
 
-    console.log('requesting videos list')
+    console.log(`found ${videoIds.length} videos`)
 
     const videoInfos = await Promise.all(requests)
 
