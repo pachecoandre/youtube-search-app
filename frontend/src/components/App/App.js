@@ -36,7 +36,6 @@ const App = () => {
         for (let i = 0; i < weekConfig.length; i++) {
             if (!weekConfig[i]) weekConfig[i] = '0'
         }
-        console.log(weekConfig)
         // validate inputs
         const foundError = checkErrors({ weekConfig, search })
 
