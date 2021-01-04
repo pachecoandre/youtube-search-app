@@ -32,5 +32,5 @@ The App is ready to be deployed!
 [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
 ##### Troubleshooting
-ERROR: ENOSPC on Linux (Limit-for-number-of-file-watchers-reached) - 
+ERROR: ENOSPC on Linux (limit for number of file watchers reached) - 
 [click here](https://dev.to/shajahan/enospc-system-limit-for-number-of-file-watchers-reached-ubuntu-emberjs-5347)
