@@ -1,36 +1,36 @@
 # Youtube Search App
 
-## Backend
+### Backend
 
-In the backend directory, you can run:
+In the backend directory, run:
 
-### `npm install`
-### `npm run start`
+`npm install`
 
-## Frontend
+`npm run start`
 
-In the frontend directory, you can run:
+### Frontend
 
-### `npm install`
-### `npm start`
+In the frontend directory, run:
 
-Runs the app in the development mode.\
+`npm install`
+
+`npm start`
+
+It runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `npm run build`
+##### Build
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The App is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### Deployment
 
-### Deployment
+[https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+##### Troubleshooting
+ERROR: ENOSPC on Linux (Limit-for-number-of-file-watchers-reached) - 
+[click here](https://dev.to/shajahan/enospc-system-limit-for-number-of-file-watchers-reached-ubuntu-emberjs-5347)
