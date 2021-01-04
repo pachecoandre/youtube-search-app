@@ -2,9 +2,17 @@
 
 ### Backend
 
-In the backend directory, run:
+In the backend directory, install the dependencies:
 
 `npm install`
+
+Create a .env file in the `config/` folder.
+
+Add a valid google api key to the file:
+
+`GAPI_YOUTUBE_KEY=<your-google-api-key>` 
+
+Finally start the service:
 
 `npm run start`
 
